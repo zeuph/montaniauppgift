@@ -1,0 +1,29 @@
+{# 
+
+Product Info partial 
+Should contain body text about the product 
+
+#}
+<div
+	class="text-left mx-4">
+	{# Display name, category and price of product #}
+	<strong>
+		{{ product.artiklar_benamning is defined ? product.artiklar_benamning : "Name not found"}}
+	</strong>
+	<p class="text-gray-400 text-sm">
+		{{ product.artikelkategorier_id is defined ? product.artikelkategorier_id : "Category not found"}}
+	</p>
+
+	<p class="pt-16">
+		{{ product.pris is defined ? product.pris : "Pris not found"}}
+		{{ product.valutor_id is defined ? product.valutor_id : "valuta not found"}}
+	</p>
+
+	{# Link to product page #}
+	<a href="/" class=" block w-full mx-auto pt-3">
+		<p class="bg-blue-500 hover:bg-blue-600 text-center py-3 rounded-lg shadow-md text-white">
+			Till produkt
+		</p>
+	</a>
+
+</div>

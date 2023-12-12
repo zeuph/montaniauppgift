@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+	<div
+		class="w-[70%] mx-auto flex flex-wrap gap-5">
+		{# Loop through the product array #}
+		{% for product in data.products %}
+			<div
+				class="w-[30%] min-w-[20rem] mx-auto py-5 bg-[#fafafa] text-center border-solid border-2 border-gray-400 rounded-xl shadow-sm">
+
+				{# Show image if it's defined #}
+				<div id="image-box" class="h-[12rem] w-[12rem] overflow-hidden mx-auto py-4 flex">
+					<img src="{{ product.bild.url is defined ? product.bild.url : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gmt-sales.com%2Fwp-content%2Fuploads%2F2015%2F10%2Fno-image-found.jpg&f=1&nofb=1&ipt=8d22247fe5cf97c13861b9a543808d51ddfcdba90ed5ac966b816547051288c7&ipo=images" }}" class="object-contain mx-auto" alt="">
+				</div>
+
+				{# Information is split up in partials for readability #}
+				{% include '/product/_productinfo_partial.html.twig' %}
+
+				{% include '/product/_variant_partial.html.twig' %}
+
+				{% include '/product/_moms_partial.html.twig' %}
+
+			</div>
+		{% endfor %}
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% for moms in product.momssatser %}
+
+	{% if moms is defined %}
+		<h1>
+			{{moms}}
+		</h1>
+	{% else %}
+		<h1>
+			Moms not found
+		</h1>
+	{% endif %}
+{% endfor %}
