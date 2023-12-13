@@ -5,6 +5,11 @@ namespace App\Service;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+
+/*
+API Service to fetch data from a api endpoint
+*/
+
 class ApiService
 {
     private $httpClient;

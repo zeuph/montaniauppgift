@@ -2,26 +2,44 @@
 
 {% block body %}
 
-	<div
-		class="w-[70%] mx-auto flex flex-wrap gap-5">
-		{# Loop through the product array #}
-		{% for product in data.products %}
-			<div
-				class="w-[30%] min-w-[20rem] mx-auto py-5 bg-[#fafafa] text-center border-solid border-2 border-gray-400 rounded-xl shadow-sm">
+	<div class="w-[70%] mx-auto flex flex-wrap gap-5">
 
-				{# Show image if it's defined #}
-				<div id="image-box" class="h-[12rem] w-[12rem] overflow-hidden mx-auto py-4 flex">
-					<img src="{{ product.bild.url is defined ? product.bild.url : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gmt-sales.com%2Fwp-content%2Fuploads%2F2015%2F10%2Fno-image-found.jpg&f=1&nofb=1&ipt=8d22247fe5cf97c13861b9a543808d51ddfcdba90ed5ac966b816547051288c7&ipo=images" }}" class="object-contain mx-auto" alt="">
-				</div>
+		<div class="w-full mt-20 flex justify-between items-end">
+			<p class="text-2xl">
+				Antal artiklar:
+				{{ articleAmount }}
+			</p>
+			<form action="/filter" method="GET">
+				<select name="sortingmethod" class="p-4 rounded-md bg-blue-500 text-white" onchange="this.form.submit()">
+					<option value="alphabetical" selected>Välj sorteringsmetod</option>
+					<option value="alphabetical">Bokstavsordning</option>
+					<option value="lowtohigh">Pris - Lågt till högt</option>
+					<option value="hightolow">Pris - Högt till lågt</option>
+				</select>
+			</form>
+		</div>
 
-				{# Information is split up in partials for readability #}
-				{% include '/product/_productinfo_partial.html.twig' %}
-
-				{% include '/product/_variant_partial.html.twig' %}
-
-				{% include '/product/_moms_partial.html.twig' %}
-
+		{% for category in data %}
+			{# Pretty ugly way of getting the category #}
+			{# ...but it works #}
+			{% set productCategory = category|first %}
+				<div id="category-divider" class="w-full p-4 rounded-xl bg-blue-500 text-white text-center text-3xl"> {{ productCategory.artikelkategorier_id is defined ? productCategory.artikelkategorier_id : "OSORTERAT"  }}
 			</div>
+			{# Loop through the product array #}
+			{% for product in category %}
+				<div
+					class="w-[30%] min-w-[20rem] mx-auto py-5 bg-gray-100 text-center border-solid border-[1px] border-spacing-1 border-sky-300 rounded-xl shadow-md">
+
+					{# Show image if it's defined #}
+					<div id="image-box" class="h-[12rem] w-[12rem] overflow-hidden mx-auto py-4 flex">
+						<img src="{{ product.bild.url is defined ? product.bild.url : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gmt-sales.com%2Fwp-content%2Fuploads%2F2015%2F10%2Fno-image-found.jpg&f=1&nofb=1&ipt=8d22247fe5cf97c13861b9a543808d51ddfcdba90ed5ac966b816547051288c7&ipo=images" }}" class="object-contain mx-auto" alt="{{ product.bild.alt is defined ? product.bild.alt : "Missing picture"}}">
+					</div>
+
+					{# Information is split up in partials for readability #}
+					{% include '/product/_productinfo_partial.html.twig' %}
+
+				</div>
+			{% endfor %}
 		{% endfor %}
 	</div>
 
