@@ -23,7 +23,8 @@
 			{# Pretty ugly way of getting the category #}
 			{# ...but it works #}
 			{% set productCategory = category|first %}
-				<div id="category-divider" class="w-full p-4 rounded-xl bg-blue-500 text-white text-center text-3xl"> {{ productCategory.artikelkategorier_id is defined ? productCategory.artikelkategorier_id : "OSORTERAT"  }}
+			{# Noticed twig has some nice functionality like "capitalize" so I wanted to use it somewhere #}
+				<div id="category-divider" class="w-full p-4 rounded-xl bg-blue-500 text-white text-center text-3xl"> {{ productCategory.artikelkategorier_id is defined ? productCategory.artikelkategorier_id|capitalize : "OSORTERAT"|capitalize  }}
 			</div>
 			{# Loop through the product array #}
 			{% for product in category %}
@@ -31,8 +32,10 @@
 					class="w-[30%] min-w-[20rem] mx-auto py-5 bg-gray-100 text-center border-solid border-[1px] border-spacing-1 border-sky-300 rounded-xl shadow-md">
 
 					{# Show image if it's defined #}
-					<div id="image-box" class="h-[12rem] w-[12rem] overflow-hidden mx-auto py-4 flex">
-						<img src="{{ product.bild.url is defined ? product.bild.url : "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.gmt-sales.com%2Fwp-content%2Fuploads%2F2015%2F10%2Fno-image-found.jpg&f=1&nofb=1&ipt=8d22247fe5cf97c13861b9a543808d51ddfcdba90ed5ac966b816547051288c7&ipo=images" }}" class="object-contain mx-auto" alt="{{ product.bild.alt is defined ? product.bild.alt : "Missing picture"}}">
+					<div
+						id="image-box" class="h-[12rem] w-[12rem] overflow-hidden mx-auto py-4 flex">
+						{# No image found image was added hastily and therefore jpg, png would've been better #}
+						<img src="{{ product.bild.url is defined ? product.bild.url : asset('img/no_image_available.jpg') }}" class="object-contain mx-auto" alt="{{ product.bild.alt is defined ? product.bild.alt : "Missing picture"}}">
 					</div>
 
 					{# Information is split up in partials for readability #}

@@ -19,6 +19,7 @@ class ApiService
         $this->httpClient = HttpClient::create();
     }
 
+    // Simple fetch request with HttpClient
     public function fetchDataFromApi(): JsonResponse
     {
         $url = 'http://dev14.ageraehandel.se/sv/api/product/';

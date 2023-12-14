@@ -36,10 +36,19 @@ class FilterService
         }
         // Break it up into categories after sorting
         $categoryArr = $this->separateIntoCategories($data);
-        // Sneaky quick fix to get unsorted at bottom of the page
-        return array_reverse($categoryArr);
+
+        // Just sort the categories in alphabetical order for now
+        // More data engineering could be done to put unsorted at the bottom etc
+        uksort($categoryArr, function ($a, $b) {
+            return strcmp($a, $b);
+        });
+        return $categoryArr;
     }
 
+    /*
+    Separate items into categories based on their "artikelikatergorier_id"
+    If they have no category they end up in "OSORTERAT" category
+    */
     function separateIntoCategories($data)
     {
         $groupedObjects = [];
